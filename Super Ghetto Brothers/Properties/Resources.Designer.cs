@@ -83,6 +83,16 @@ namespace Super_Ghetto_Brothers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Goonba_1_png {
+            get {
+                object obj = ResourceManager.GetObject("Goonba_1_png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap GroundBrick_1_png {
             get {
                 object obj = ResourceManager.GetObject("GroundBrick_1_png", resourceCulture);

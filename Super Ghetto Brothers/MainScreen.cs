@@ -15,17 +15,12 @@ namespace Super_Ghetto_Brothers
         public MainScreen()
         {
             InitializeComponent();
+            plr1Button.Focus();
         }
 
         private void plr1Button_Click(object sender, EventArgs e)
         {
             Form1.players = 1;
-            startGame();
-        }
-
-        private void plr2Button_Click(object sender, EventArgs e)
-        {
-            Form1.players = 2;
             startGame();
         }
 
