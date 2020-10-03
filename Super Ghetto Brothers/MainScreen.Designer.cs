@@ -35,19 +35,19 @@
             // 
             // plr1Button
             // 
-            this.plr1Button.BackColor = System.Drawing.Color.Aquamarine;
-            this.plr1Button.Location = new System.Drawing.Point(207, 197);
+            this.plr1Button.BackColor = System.Drawing.Color.PaleGreen;
+            this.plr1Button.Location = new System.Drawing.Point(224, 369);
             this.plr1Button.Name = "plr1Button";
             this.plr1Button.Size = new System.Drawing.Size(172, 53);
             this.plr1Button.TabIndex = 0;
-            this.plr1Button.Text = "1 Player";
+            this.plr1Button.Text = "Play";
             this.plr1Button.UseVisualStyleBackColor = false;
             this.plr1Button.Click += new System.EventHandler(this.plr1Button_Click);
             // 
             // exitButton
             // 
             this.exitButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.exitButton.Location = new System.Drawing.Point(385, 197);
+            this.exitButton.Location = new System.Drawing.Point(411, 369);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(164, 53);
             this.exitButton.TabIndex = 2;
