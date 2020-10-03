@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.CompilerServices;
 
 namespace Super_Ghetto_Brothers
 {
@@ -14,8 +15,9 @@ namespace Super_Ghetto_Brothers
     {
         #region variables
         int level = 1;
-        int count, p1X, p1Y, p1Width, p1Height, gX, gY, gW, gH, p1YStored, pX, pY, pW, pH;
-        int baX, baY, baWidth, baHeight, baSpawned;
+        public static int WIDTH;
+        int count, p1X, p1Y, p1Width, p1Height, gX, gY, gW, gH, p1YStored, pX, pY, pW, pH, pSpawned;
+        int baX, baY, baWidth, baHeight, baSpawned, koX, koY, koWidth, koHeight, koSpawned;
         public static int lives, trueX;
         bool leftArrowDown, rightArrowDown, upArrowDown, grounded, jump, right, left;
         bool baDead, baDir;
@@ -24,36 +26,44 @@ namespace Super_Ghetto_Brothers
         #region userInput
         private void KeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            switch (e.KeyCode)
+            if (count > 200)
             {
-                case Keys.Left:
-                    leftArrowDown = true;
-                    break;
-                case Keys.Right:
-                    rightArrowDown = true;
-                    break;
-                case Keys.Up:
-                    upArrowDown = true;
-                    break;
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                        leftArrowDown = true;
+                        break;
+                    case Keys.Right:
+                        rightArrowDown = true;
+                        break;
+                    case Keys.Up:
+                        upArrowDown = true;
+                        break;
 
+                }
             }
+           
         }
 
         private void keyUp(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            if (count > 200)
             {
-                case Keys.Left:
-                    leftArrowDown = false;
-                    break;
-                case Keys.Right:
-                    rightArrowDown = false;
-                    break;
-                case Keys.Up:
-                    upArrowDown = false;
-                    break;
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                        leftArrowDown = false;
+                        break;
+                    case Keys.Right:
+                        rightArrowDown = false;
+                        break;
+                    case Keys.Up:
+                        upArrowDown = false;
+                        break;
 
+                }
             }
+            
         }
         #endregion
 
@@ -64,36 +74,46 @@ namespace Super_Ghetto_Brothers
         Image player2Image = Properties.Resources.Bros_2_png;
         Image groundImage = Properties.Resources.GroundBrick_1_png;
         Image goonImage = Properties.Resources.Goonba_1_png;
+        Image koopaImage1 = Properties.Resources.Koopa_Trooper_1_png;
+        Image koopaImage2 = Properties.Resources.Koopa_Trooper_2_png;
         List<Ground> floorTiles = new List<Ground>();
         List<Platform> platforms = new List<Platform>();
         List<Goonba> goons = new List<Goonba>();
+        List<Koopa> koopas = new List<Koopa>();
         Rectangle p1Bot = new Rectangle();
         Rectangle p1Top = new Rectangle();
         Rectangle p1L = new Rectangle();
         Rectangle p1R = new Rectangle();
+        Rectangle koop = new Rectangle();
         #endregion 
-        public GameScreen() //lading user control
+        public GameScreen() //loading user control
         {
             InitializeComponent();
-            lives = 3;
         }
 
         public void dead() //when you die
         {
-            count = 0;
-            gameTimer.Stop();
-            // f is the form that this control is on - ("this" is the current User Control) 
-            Form f = this.FindForm();
-            f.Controls.Remove(this);
-            // Create an instance of the SecondScreen 
-            GameOver go = new GameOver();
-            // Add the User Control to the Form 
-            f.Controls.Add(go);
+            if(count > 200)
+            {
+                count = 0;
+                lives--;
+                gameTimer.Stop();
+                // f is the form that this control is on - ("this" is the current User Control) 
+                Form f = this.FindForm();
+                f.Controls.Remove(this);
+                // Create an instance of the SecondScreen 
+                GameOver go = new GameOver();
+                // Add the User Control to the Form 
+                f.Controls.Add(go);
+            }
+           
         }
        
         private void GameScreen_Load(object sender, EventArgs e) //loading game
         {
+            this.Focus();
             this.BackColor = Color.Black;
+            WIDTH = this.Width;
             baDir = true; //true = right
             p1Width = 45;
             p1Height = 90;
@@ -116,7 +136,22 @@ namespace Super_Ghetto_Brothers
             baHeight = 40;
             baDead = false;
             baSpawned = 0;
+            pSpawned = 0;
+            koX = 900;
+            koHeight = 90;
+            koWidth = 45;
+            koSpawned = 0;
+            koY = this.Height - koHeight - gH;
             gameTimer.Start();
+        }
+
+        private void bounce()//Bounce off enemys when called
+        {
+            //Basically teleports you up
+            for(int i = 0; i <10; i++)
+            {
+                p1Y-=10;
+            }
         }
 
         private void gameTimer_Tick(object sender, EventArgs e) //The game loop
@@ -126,10 +161,10 @@ namespace Super_Ghetto_Brothers
             {
                 if (left)
                 {
-
-
+                   
                     if (p1X > 100)
                     {
+
                         p1X -= 5;
                         if (p1Width > 0)
                         {
@@ -140,22 +175,26 @@ namespace Super_Ghetto_Brothers
                     }
                     else
                     {
-                        trueX--;
+                        trueX-=5;
                         foreach (Goonba g in goons)
                         {
-                            g.RX++;
-                            g.LX++;
+                            g.RX+=5;
+                            g.LX+=5;
                         }
 
                             foreach (Ground b in floorTiles)
                         {
-                            b.x++;
+                            b.x+=5;
                         }
                         foreach (Platform b in platforms)
                         {
-                            b.x++;
+                            b.x+=5;
                         }
-                        
+                        foreach (Koopa b in koopas)
+                        {
+                            b.x += 5;
+                        }
+
                     }
                 }
                
@@ -179,21 +218,25 @@ namespace Super_Ghetto_Brothers
                     }
                     else
                     {
-                        trueX++;
+                        trueX+=5;
                         foreach (Goonba g in goons)
                         {
-                            g.RX--;
-                            g.LX--;
+                            g.RX-=5;
+                            g.LX-=5;
                         }
                         foreach (Ground b in floorTiles)
                         {
-                            b.x--;
+                            b.x-=5;
                         }
                         foreach (Platform b in platforms)
                         {
-                            b.x--;
+                            b.x-=5;
                         }
-                       
+                        foreach (Koopa b in koopas)
+                        {
+                            b.x -= 5;
+                        }
+
                     }
                 }
             }
@@ -244,11 +287,35 @@ namespace Super_Ghetto_Brothers
             } //Generate ground
 
             #region Platform generation
-            if (trueX == 0 && platforms.Count < 5)
+            while (pSpawned < 5)
             {
-                Platform newP = new Platform(pX, pY, pW, pH, platforms.Count);
-                pX += gW;
+                Platform newP = new Platform(pX + (gW*pSpawned), pY, pW, pH, platforms.Count);
                 platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 7)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) +200, pY, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 11)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 600, pY, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 16)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 820, this.Height-60, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 20)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 700, this.Height - 90, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
             }
             #endregion
 
@@ -265,6 +332,13 @@ namespace Super_Ghetto_Brothers
                 Goonba newG = new Goonba(baX, baY, baWidth, baHeight, 800, 630, baDead);
                 goons.Add(newG);
                 baSpawned++;
+            }
+
+            if (koSpawned < 1)
+            {
+                koSpawned++;
+                Koopa newK = new Koopa(koX, koY, koWidth, koHeight, 1, false);
+                koopas.Add(newK);
             }
             #endregion
 
@@ -338,7 +412,6 @@ namespace Super_Ghetto_Brothers
             }
             if (p1Y > this.Height)
             {
-                lives--;
                 dead();
             }
 
@@ -369,6 +442,7 @@ namespace Super_Ghetto_Brothers
                 }
                 if (p1Bot.IntersectsWith(goon))
                 {
+                    bounce();
                     g.dead = true;
                 }
                 if (p1L.IntersectsWith(goon) || p1R.IntersectsWith(goon) || p1Top.IntersectsWith(goon))
@@ -377,20 +451,99 @@ namespace Super_Ghetto_Brothers
                 }
 
             }
-            #endregion
+            foreach (Koopa k in koopas)
+            {
+                Rectangle koop = new Rectangle();
+                Console.WriteLine(k.state);
+                k.attack();
+                if (k.facingR)
+                {
+                    if (k.state == 2)
+                    {
+                        koop = new Rectangle(k.x, k.y, k.width, k.height);
+                    }
+                    else
+                    {
+                        koop = new Rectangle(k.x, k.y, k.width, k.height);
+                    }
 
-            #region kill/break
+
+                }
+                else
+                {
+                    if (k.state == 2)
+                    {
+                        koop = new Rectangle(k.x, k.y, k.width * -1, k.height);
+                    }
+                    else
+                    {
+                        koop = new Rectangle(k.x, k.y, k.width * -1, k.height);
+                    }
+                }
+                if (p1Bot.IntersectsWith(koop))
+                {
+                    if(k.state == 1)
+                    {
+                        k.state = 2;
+                        bounce();
+                        break;
+                    }
+                    else
+                    {
+                        k.dead = true;
+                        bounce();
+                        break;
+                    }
+                    
+                }
+                if (p1L.IntersectsWith(koop) || p1R.IntersectsWith(koop) || p1Top.IntersectsWith(koop) && k.state == 1)
+                {
+                    dead();
+                }
+
+            }
+            Bullet.shoot();
+            foreach (Bullet b in Koopa.bullets)
+            {
+                Rectangle bull = new Rectangle(b.x, b.y, b.width, b.height);
+                if (p1Bot.IntersectsWith(bull))
+                {
+                    b.dead = true;
+                    bounce();
+                }
+                    if (p1L.IntersectsWith(bull) || p1R.IntersectsWith(bull) || p1Top.IntersectsWith(bull))
+                {
+                    dead();
+                }
+            }
+
+                #endregion
+
+                #region kill/break
             int index = goons.FindIndex(g => g.dead == true);
             if (index >= 0)
             {
                 goons.RemoveAt(index);
             }
+            int index2 = Koopa.bullets.FindIndex(g => g.dead == true);
+            if (index2 >= 0)
+            {
+                Koopa.bullets.RemoveAt(index2);
+            }
+            int index3 = koopas.FindIndex(k => k.dead == true);
+            if (index3 >= 0)
+            {
+                koopas.RemoveAt(index3);
+            }
             #endregion
+
+
 
             count++;
             Refresh();
-            Console.WriteLine(trueX);
+            //Console.WriteLine(trueX);
         }
+
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             if (count < 200)
@@ -407,19 +560,59 @@ namespace Super_Ghetto_Brothers
                 {
                     e.Graphics.DrawImage(groundImage, p.x, p.y, p.width, p.height);
                 }
+                foreach (Koopa k in koopas)
+                {
+                    if (k.facingR)
+                    {
+                        if (k.state == 2)
+                        {
+                            e.Graphics.DrawImage(koopaImage2, k.x, k.y, k.width, k.height);
+                        }
+                        else
+                        {
+                            e.Graphics.DrawImage(koopaImage1, k.x, k.y, k.width, k.height);
+                        }
+
+                       
+                    }
+                    else
+                    {
+                        if (k.state == 2)
+                        {
+                            e.Graphics.DrawImage(koopaImage2, k.x, k.y, k.width * -1, k.height);
+                        }
+                        else
+                        {
+                            e.Graphics.DrawImage(koopaImage1, k.x, k.y, k.width*-1, k.height);
+                        }
+                        
+                        
+                    }
+                    
+                }
                 foreach (Goonba b in goons)
                 {
                     e.Graphics.DrawImage(goonImage, b.x, b.y, b.width, b.height);
-                    e.Graphics.DrawRectangle(pen, b.LX, b.y, b.RX - b.LX, 5);
+                    //TESTING BOX
+                    //e.Graphics.DrawRectangle(pen, b.LX, b.y, b.RX - b.LX, 5);
                 }
+                foreach (Bullet b in Koopa.bullets)
+                {
+                    e.Graphics.FillRectangle(brush,b.x, b.y, b.width, b.height);
+
+                }
+                e.Graphics.DrawString($"Coins: ", this.Font, brush, 10, 50);
+                e.Graphics.DrawString($"Lives: {lives}", this.Font, brush, 10, 70);
                 e.Graphics.DrawImage(player1Image, p1X, p1Y, p1Width, p1Height);
-                e.Graphics.DrawRectangle(pen, p1Top);
-                e.Graphics.DrawRectangle(pen, p1Bot);
-                e.Graphics.DrawRectangle(pen, p1L);
-                e.Graphics.DrawRectangle(pen, p1R);
+                //TESTING BOXES
+                //e.Graphics.DrawRectangle(pen, p1Top);
+                //e.Graphics.DrawRectangle(pen, p1Bot);
+                //e.Graphics.DrawRectangle(pen, p1L);
+                //e.Graphics.DrawRectangle(pen, p1R);
                 
 
             } 
         }
     }
 }
+x

@@ -21,6 +21,7 @@ namespace Super_Ghetto_Brothers
         private void plr1Button_Click(object sender, EventArgs e)
         {
             Form1.players = 1;
+            GameScreen.lives = 3;
             startGame();
         }
 
@@ -38,6 +39,11 @@ namespace Super_Ghetto_Brothers
             GameScreen gs = new GameScreen();
             // Add the User Control to the Form 
             f.Controls.Add(gs);
+        }
+
+        private void MainScreen_Load(object sender, EventArgs e)
+        {
+            plr1Button.Focus();
         }
     }
 }

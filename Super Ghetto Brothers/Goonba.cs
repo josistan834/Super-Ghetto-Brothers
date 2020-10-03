@@ -8,7 +8,7 @@ namespace Super_Ghetto_Brothers
 {
     public class Goonba
     {
-        public int x, y, width, height, LX, RX;
+        public int x, y, width, height, LX, RX, speed;
         public bool dead;
         public Goonba(int _x, int _y, int _width, int _height, int _RX, int _LX, bool _dead)
         {
@@ -26,11 +26,11 @@ namespace Super_Ghetto_Brothers
         {
             if (dir == false)
             {
-                g.x -= 2;
+                g.x -= 5;
             }
             else
             {
-                g.x += 2;
+                g.x += 5;
             }
         }
 

@@ -66,6 +66,7 @@
             this.DoubleBuffered = true;
             this.Name = "MainScreen";
             this.Size = new System.Drawing.Size(800, 450);
+            this.Load += new System.EventHandler(this.MainScreen_Load);
             this.ResumeLayout(false);
 
         }

@@ -28,8 +28,31 @@ namespace Super_Ghetto_Brothers
                 // Create an instance of the SecondScreen 
                 GameScreen gs = new GameScreen();
                 // Add the User Control to the Form 
-                this.Controls.Add(gs);
+                f.Controls.Add(gs);
             }
+            else
+            {
+                continueButton.Show();
+                exitButton.Show();
+                label1.Show();
+                continueButton.Focus();
+            }
+        }
+
+        private void continueButton_Click(object sender, EventArgs e)
+        {
+            // f is the form that this control is on - ("this" is the current User Control) 
+            Form f = this.FindForm();
+            f.Controls.Remove(this);
+            // Create an instance of the SecondScreen 
+            MainScreen gs = new MainScreen();
+            // Add the User Control to the Form 
+            f.Controls.Add(gs);
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

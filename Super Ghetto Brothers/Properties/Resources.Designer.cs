@@ -99,5 +99,25 @@ namespace Super_Ghetto_Brothers.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Koopa_Trooper_1_png {
+            get {
+                object obj = ResourceManager.GetObject("Koopa_Trooper_1_png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Koopa_Trooper_2_png {
+            get {
+                object obj = ResourceManager.GetObject("Koopa_Trooper_2_png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
