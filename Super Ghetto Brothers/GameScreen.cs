@@ -84,7 +84,6 @@ namespace Super_Ghetto_Brothers
         Rectangle p1Top = new Rectangle();
         Rectangle p1L = new Rectangle();
         Rectangle p1R = new Rectangle();
-        Rectangle koop = new Rectangle();
         #endregion 
         public GameScreen() //loading user control
         {
@@ -278,13 +277,26 @@ namespace Super_Ghetto_Brothers
                 this.BackColor = Color.DeepSkyBlue;
             } //Change color at start
 
-            
-            if (floorTiles.Count < 50)
+            #region Floor generation
+            while (floorTiles.Count < 50)
             {
                 Ground newG = new Ground(gX, gY, gW, gH);
                 gX += gW;
                 floorTiles.Add(newG);
-            } //Generate ground
+            }
+            while (floorTiles.Count < 80)
+            {
+                Ground newG = new Ground(gX+200, gY, gW, gH);
+                gX += gW;
+                floorTiles.Add(newG);
+            }
+            while (floorTiles.Count < 130)
+            {
+                Ground newG = new Ground(gX + 400, gY, gW, gH);
+                gX += gW;
+                floorTiles.Add(newG);
+            }
+            #endregion
 
             #region Platform generation
             while (pSpawned < 5)
@@ -314,6 +326,60 @@ namespace Super_Ghetto_Brothers
             while (pSpawned < 20)
             {
                 Platform newP = new Platform(pX + (gW * pSpawned) + 700, this.Height - 90, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 25)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 900, this.Height - 60, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 29)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 750, this.Height - 90, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 36)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 2420, this.Height - 60, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 42)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 2240, this.Height - 90, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 47)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 2090, this.Height - 120, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 51)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 1970, this.Height - 150, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 54)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 1880, this.Height - 180, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 56)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 1820, this.Height - 210, pW, pH, platforms.Count);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 57)
+            {
+                Platform newP = new Platform(pX + (gW * pSpawned) + 1790, this.Height - 240, pW, pH, platforms.Count);
                 platforms.Add(newP);
                 pSpawned++;
             }
@@ -368,9 +434,27 @@ namespace Super_Ghetto_Brothers
                 //Note: Consider adding block break if time.
                 Rectangle coPlat = new Rectangle(p.x, p.y,p.width, p.height);
                 if (p1Bot.IntersectsWith(coPlat))
-
                 {
+                   
                     grounded = true;
+                    foreach (Platform b in platforms)
+                    {
+                        Rectangle coPlat2 = new Rectangle(b.x, b.y, b.width, b.height);
+                        if (p1R.IntersectsWith(coPlat2) || p1L.IntersectsWith(coPlat2))
+
+                        {
+                            if (p1Width > 0)
+                            {
+                                right = false;
+                            }
+                            else
+                            {
+                                left = false;
+                            }
+                            break;
+                        }
+                    }
+
                     break;
                 }
                 if (p1Top.IntersectsWith(coPlat))
@@ -379,7 +463,7 @@ namespace Super_Ghetto_Brothers
                     jump = false;
                     break;
                 }
-                if (p1R.IntersectsWith(coPlat))
+                if (p1R.IntersectsWith(coPlat) || p1L.IntersectsWith(coPlat))
 
                 {
                     if (p1Width >0)
@@ -519,7 +603,7 @@ namespace Super_Ghetto_Brothers
 
                 #endregion
 
-                #region kill/break
+            #region kill/break
             int index = goons.FindIndex(g => g.dead == true);
             if (index >= 0)
             {
@@ -608,7 +692,7 @@ namespace Super_Ghetto_Brothers
                 //e.Graphics.DrawRectangle(pen, p1Top);
                 //e.Graphics.DrawRectangle(pen, p1Bot);
                 //e.Graphics.DrawRectangle(pen, p1L);
-                //e.Graphics.DrawRectangle(pen, p1R);
+                e.Graphics.DrawRectangle(pen, p1R);
                 
 
             } 
