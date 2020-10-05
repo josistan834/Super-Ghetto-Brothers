@@ -40,6 +40,7 @@ namespace Super_Ghetto_Brothers
             GameScreen gs = new GameScreen();
             // Add the User Control to the Form 
             f.Controls.Add(gs);
+            gs.Location = new Point((f.Width - gs.Width) / 2, (f.Height - gs.Height) / 2);
         }
 
         private void MainScreen_Load(object sender, EventArgs e)

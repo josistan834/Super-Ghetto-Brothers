@@ -29,6 +29,7 @@ namespace Super_Ghetto_Brothers
             // Add the User Control to the Form 
 
             this.Controls.Add(ms);
+            ms.Location = new Point((this.Width - ms.Width) / 2, (this.Height - ms.Height) / 2);
         }
     }
 }

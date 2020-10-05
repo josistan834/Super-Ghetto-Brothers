@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics.SymbolStore;
 
 namespace Super_Ghetto_Brothers
 {
@@ -22,16 +23,32 @@ namespace Super_Ghetto_Brothers
         {
             if (GameScreen.lives > 0)
             {
-                // f is the form that this control is on - ("this" is the current User Control) 
-                Form f = this.FindForm();
-                f.Controls.Remove(this);
-                // Create an instance of the SecondScreen 
-                GameScreen gs = new GameScreen();
-                // Add the User Control to the Form 
-                f.Controls.Add(gs);
+                if (!GameScreen.WIN)
+                {
+                    // f is the form that this control is on - ("this" is the current User Control) 
+                    Form f = this.FindForm();
+                    f.Controls.Remove(this);
+                    // Create an instance of the SecondScreen 
+                    GameScreen gs = new GameScreen();
+                    // Add the User Control to the Form 
+                    f.Controls.Add(gs);
+                    gs.Location = new Point((f.Width - gs.Width) / 2, (f.Height - gs.Height) / 2);
+                }
+                else
+                {
+                    continueButton.Show();
+                    exitButton.Show();
+                    label1.ForeColor = Color.LimeGreen;
+                    label1.Text = "YOU WIN!!!!";
+                    label1.Show();
+                    continueButton.Focus();
+                }
+               
             }
             else
             {
+                label1.ForeColor = Color.Red;
+                label1.Text = "Game Over...";
                 continueButton.Show();
                 exitButton.Show();
                 label1.Show();
@@ -45,9 +62,10 @@ namespace Super_Ghetto_Brothers
             Form f = this.FindForm();
             f.Controls.Remove(this);
             // Create an instance of the SecondScreen 
-            MainScreen gs = new MainScreen();
+            MainScreen ms = new MainScreen();
             // Add the User Control to the Form 
-            f.Controls.Add(gs);
+            f.Controls.Add(ms);
+            ms.Location = new Point((f.Width - ms.Width) / 2, (f.Height - ms.Height) / 2);
         }
 
         private void exitButton_Click(object sender, EventArgs e)

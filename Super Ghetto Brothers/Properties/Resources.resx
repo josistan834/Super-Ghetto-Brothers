@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Backimage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Backimage.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Bros_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Bros-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -126,6 +129,9 @@
   </data>
   <data name="Flag_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Flag-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_2_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag-2.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Goonba_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Goonba-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,10 +145,19 @@
   <data name="Koopa_Trooper_2_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Koopa Trooper-2.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Mario_Death_Sound_Effect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Mario Death Sound Effect.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="PowerBrick_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PowerBrick-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PowerBrick_2_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PowerBrick-2.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Stage_Win__Super_Mario____Sound_Effect__HD_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Stage Win (Super Mario) - Sound Effect [HD].wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="stomp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\[Super Mario Bros] Goomba Stomp Sound Effect [Free Ringtone Download].wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

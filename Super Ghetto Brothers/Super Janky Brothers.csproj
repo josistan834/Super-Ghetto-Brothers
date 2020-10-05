@@ -166,5 +166,26 @@
   <ItemGroup>
     <None Include="Resources\Flag-1.png.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Backimage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\[Super Mario Bros] Goomba Stomp Sound Effect [Free Ringtone Download].mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\[Super Mario Bros] Goomba Stomp Sound Effect [Free Ringtone Download].wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mario Death Sound Effect.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mario Death Sound Effect.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stage Win %28Super Mario%29 - Sound Effect [HD].wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flag-2.png.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

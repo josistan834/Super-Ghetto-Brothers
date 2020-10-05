@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Super_Ghetto_Brothers
 {
-    public class Platform
+    class MysteryBox
     {
-        public int x, y, width, height, coins, state;
-        public bool isMyst;
-        public string item;
+        public int x, y, width, height, num, coins, state;
+        string item;
         Random coinsR = new Random();
 
-        public Platform(int _x, int _y, int _width, int _height, bool _isMyst)
+        public MysteryBox(int _x, int _y, int _width, int _height, int _coins, int _state)
         {
             x = _x;
             y = _y;
             width = _width;
             height = _height;
-            isMyst = _isMyst;
+            coins = _coins;
+            state = _state;
         }
         public void randItem(int rand)
         {
@@ -37,11 +37,7 @@ namespace Super_Ghetto_Brothers
             }
             if (item == "coin")
             {
-                coins = coinsR.Next(1, 10);
-            }
-            else
-            {
-                coins = 0;
+                coins = coinsR.Next(0, 10);
             }
         }
     }

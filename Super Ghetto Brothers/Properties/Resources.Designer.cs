@@ -63,6 +63,16 @@ namespace Super_Ghetto_Brothers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Backimage {
+            get {
+                object obj = ResourceManager.GetObject("Backimage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Bros_1_png {
             get {
                 object obj = ResourceManager.GetObject("Bros_1_png", resourceCulture);
@@ -86,6 +96,16 @@ namespace Super_Ghetto_Brothers.Properties {
         internal static System.Drawing.Bitmap Flag_1_png {
             get {
                 object obj = ResourceManager.GetObject("Flag_1_png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Flag_2_png {
+            get {
+                object obj = ResourceManager.GetObject("Flag_2_png", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -131,6 +151,15 @@ namespace Super_Ghetto_Brothers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Mario_Death_Sound_Effect {
+            get {
+                return ResourceManager.GetStream("Mario_Death_Sound_Effect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap PowerBrick_1_png {
@@ -147,6 +176,24 @@ namespace Super_Ghetto_Brothers.Properties {
             get {
                 object obj = ResourceManager.GetObject("PowerBrick_2_png", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Stage_Win__Super_Mario____Sound_Effect__HD_ {
+            get {
+                return ResourceManager.GetStream("Stage_Win__Super_Mario____Sound_Effect__HD_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream stomp {
+            get {
+                return ResourceManager.GetStream("stomp", resourceCulture);
             }
         }
     }
