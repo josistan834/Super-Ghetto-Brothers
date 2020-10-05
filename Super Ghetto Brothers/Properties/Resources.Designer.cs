@@ -91,6 +91,15 @@ namespace Super_Ghetto_Brothers.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream dead {
+            get {
+                return ResourceManager.GetStream("dead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Flag_1_png {
@@ -147,15 +156,6 @@ namespace Super_Ghetto_Brothers.Properties {
             get {
                 object obj = ResourceManager.GetObject("Koopa_Trooper_2_png", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream Mario_Death_Sound_Effect {
-            get {
-                return ResourceManager.GetStream("Mario_Death_Sound_Effect", resourceCulture);
             }
         }
         

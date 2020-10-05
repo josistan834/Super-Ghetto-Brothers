@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.CompilerServices;
 using System.Media;
+using WMPLib;
 
 namespace Super_Ghetto_Brothers
 {
     public partial class GameScreen : UserControl
     {
+        //All variables in the main game
         #region variables
         int level = 1;
         public static int WIDTH;
@@ -25,6 +27,7 @@ namespace Super_Ghetto_Brothers
         bool baDead, baDir, isMyst;
         #endregion
 
+        //Register user input on press and release
         #region userInput
         private void KeyDown(object sender, PreviewKeyDownEventArgs e)
         {
@@ -69,6 +72,7 @@ namespace Super_Ghetto_Brothers
         }
         #endregion
 
+        //Create all the objects for sounds, images, and rectangles
         #region Objects
         SolidBrush brush = new SolidBrush(Color.White);
         Pen pen = new Pen(Color.White);
@@ -92,15 +96,22 @@ namespace Super_Ghetto_Brothers
         Rectangle p1R = new Rectangle();
         Random mysteryChance = new Random();
         SoundPlayer stomp = new SoundPlayer(Properties.Resources.stomp);
-        SoundPlayer death = new SoundPlayer(Properties.Resources.Mario_Death_Sound_Effect);
+        SoundPlayer death = new SoundPlayer(Properties.Resources.dead);
         SoundPlayer winSound = new SoundPlayer(Properties.Resources.Stage_Win__Super_Mario____Sound_Effect__HD_);
-        #endregion 
-        public GameScreen() //loading user control
+        WindowsMediaPlayer music = new WindowsMediaPlayer();
+        #endregion
+
+        //All of the created methods to do repetative tasks
+        #region CustomMethods
+
+        //Initialize the userControl
+        public GameScreen() 
         {
             InitializeComponent();
         }
 
-        public void dead() //when you die
+        //Runs when you are hit by a enemy
+        public void dead() 
         {
             if(count > 200 && iStore <=0)
             {
@@ -127,6 +138,8 @@ namespace Super_Ghetto_Brothers
             }
            
         }
+
+        //Runs when you touch the flag
         public void win()
         {
             winSound.PlaySync();
@@ -142,7 +155,8 @@ namespace Super_Ghetto_Brothers
             go.Location = new Point((f.Width - go.Width) / 2, (f.Height - go.Height) / 2);
         }
        
-        private void GameScreen_Load(object sender, EventArgs e) //loading game
+        //Runs when the userControl is added to the form
+        private void GameScreen_Load(object sender, EventArgs e) 
         {
             this.Focus();
             WIN = false;
@@ -182,7 +196,8 @@ namespace Super_Ghetto_Brothers
             gameTimer.Start();
         }
 
-        private void bounce()//Bounce off enemys when called
+        //Bounce off enemys when called
+        private void bounce()
         {
             stomp.Play();
             //Basically teleports you up
@@ -191,10 +206,14 @@ namespace Super_Ghetto_Brothers
                 p1Y-=10;
             }
         }
+        #endregion
 
-        private void gameTimer_Tick(object sender, EventArgs e) //The game loop
+        //Everything that happens every tick of the game will run here (game engine)
+        private void gameTimer_Tick(object sender, EventArgs e)
         {
+            //Code to move the player and object respectively based on user input
             #region Movement
+
             if (leftArrowDown)
             {
                 if (left)
@@ -312,9 +331,10 @@ namespace Super_Ghetto_Brothers
             left = right = true;
             #endregion
 
-            //invincible
+            //Invinvibility Frames
             if (iStore > 0) { iStore--; }
-            //Coin life
+
+            //Coins to Life
             if (coins >= 100)
             {
                 if (coins-oldCoins >= 100)
@@ -323,10 +343,12 @@ namespace Super_Ghetto_Brothers
                     oldCoins = coins;
                 }  
             }
+
+            //Change color at start
             if (count > 200 && this.BackColor != Color.DeepSkyBlue)
             {
                 this.BackColor = Color.DeepSkyBlue;
-            } //Change color at start
+            } 
 
             #region Floor generation
             while (floorTiles.Count < 50)
@@ -781,12 +803,15 @@ namespace Super_Ghetto_Brothers
             //Console.WriteLine(trueX);
         }
 
+        //Draw the objects to the screen
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            //Showing the level screen for 200 ticks
             if (count < 200)
             {
                 e.Graphics.DrawString($"{lives}X Lives \n Level {level}", this.Font, brush, this.Width /2 - 50, this.Height / 2);
             }
+            //Display all game objects while the game is running
             else if (count > 200)
             {
                 e.Graphics.DrawImage(back, backX-25, -500, 1500, 1500);
@@ -846,8 +871,6 @@ namespace Super_Ghetto_Brothers
                 foreach (Goonba b in goons)
                 {
                     e.Graphics.DrawImage(goonImage, b.x, b.y, b.width, b.height);
-                    //TESTING BOX
-                    //e.Graphics.DrawRectangle(pen, b.LX, b.y, b.RX - b.LX, 5);
                 }
                 foreach (Bullet b in Koopa.bullets)
                 {
