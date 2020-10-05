@@ -124,6 +124,9 @@
   <data name="Bros_2_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Bros-2.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Flag_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Flag-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Goonba_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Goonba-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -135,5 +138,11 @@
   </data>
   <data name="Koopa_Trooper_2_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Koopa Trooper-2.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PowerBrick_1_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PowerBrick-1.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PowerBrick_2_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PowerBrick-2.png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -16,11 +16,11 @@ namespace Super_Ghetto_Brothers
         #region variables
         int level = 1;
         public static int WIDTH;
-        int count, p1X, p1Y, p1Width, p1Height, gX, gY, gW, gH, p1YStored, pX, pY, pW, pH, pSpawned;
+        int count, p1X, p1Y, p1Width, p1Height, gX, gY, gW, gH, p1YStored, pX, pY, pW, pH, pSpawned, pState, iStore;
         int baX, baY, baWidth, baHeight, baSpawned, koX, koY, koWidth, koHeight, koSpawned;
-        public static int lives, trueX;
+        public static int lives, trueX, coins, oldCoins;
         bool leftArrowDown, rightArrowDown, upArrowDown, grounded, jump, right, left;
-        bool baDead, baDir;
+        bool baDead, baDir, isMyst;
         #endregion
 
         #region userInput
@@ -76,6 +76,9 @@ namespace Super_Ghetto_Brothers
         Image goonImage = Properties.Resources.Goonba_1_png;
         Image koopaImage1 = Properties.Resources.Koopa_Trooper_1_png;
         Image koopaImage2 = Properties.Resources.Koopa_Trooper_2_png;
+        Image mBox1 = Properties.Resources.PowerBrick_1_png;
+        Image mBox2 = Properties.Resources.PowerBrick_2_png;
+        Image flag = Properties.Resources.Flag_1_png;
         List<Ground> floorTiles = new List<Ground>();
         List<Platform> platforms = new List<Platform>();
         List<Goonba> goons = new List<Goonba>();
@@ -84,6 +87,7 @@ namespace Super_Ghetto_Brothers
         Rectangle p1Top = new Rectangle();
         Rectangle p1L = new Rectangle();
         Rectangle p1R = new Rectangle();
+        Random mysteryChance = new Random();
         #endregion 
         public GameScreen() //loading user control
         {
@@ -92,18 +96,26 @@ namespace Super_Ghetto_Brothers
 
         public void dead() //when you die
         {
-            if(count > 200)
+            if(count > 200 && iStore <=0)
             {
-                count = 0;
-                lives--;
-                gameTimer.Stop();
-                // f is the form that this control is on - ("this" is the current User Control) 
-                Form f = this.FindForm();
-                f.Controls.Remove(this);
-                // Create an instance of the SecondScreen 
-                GameOver go = new GameOver();
-                // Add the User Control to the Form 
-                f.Controls.Add(go);
+                if (pState == 1)
+                {
+                    count = 0;
+                    lives--;
+                    gameTimer.Stop();
+                    // f is the form that this control is on - ("this" is the current User Control) 
+                    Form f = this.FindForm();
+                    f.Controls.Remove(this);
+                    // Create an instance of the SecondScreen 
+                    GameOver go = new GameOver();
+                    // Add the User Control to the Form 
+                    f.Controls.Add(go);
+                }
+                else
+                {
+                    pState = 1;
+                    iStore = 100;
+                }
             }
            
         }
@@ -111,6 +123,10 @@ namespace Super_Ghetto_Brothers
         private void GameScreen_Load(object sender, EventArgs e) //loading game
         {
             this.Focus();
+            
+            iStore = 0;
+            pState = 1;
+            isMyst = false;
             this.BackColor = Color.Black;
             WIDTH = this.Width;
             baDir = true; //true = right
@@ -271,7 +287,17 @@ namespace Super_Ghetto_Brothers
             left = right = true;
             #endregion
 
-
+            //invincible
+            if (iStore > 0) { iStore--; }
+            //Coin life
+            if (coins >= 100)
+            {
+                if (coins-oldCoins >= 100)
+                {
+                    lives++;
+                    oldCoins = coins;
+                }  
+            }
             if (count > 200 && this.BackColor != Color.DeepSkyBlue)
             {
                 this.BackColor = Color.DeepSkyBlue;
@@ -301,85 +327,130 @@ namespace Super_Ghetto_Brothers
             #region Platform generation
             while (pSpawned < 5)
             {
-                Platform newP = new Platform(pX + (gW*pSpawned), pY, pW, pH, platforms.Count);
+                if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned), pY, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
+                
+                
             }
             while (pSpawned < 7)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) +200, pY, pW, pH, platforms.Count);
+                if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) +200, pY, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
             while (pSpawned < 11)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 600, pY, pW, pH, platforms.Count);
+                if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 600, pY, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
+            //Note: ground platforms, no randoms.
             while (pSpawned < 16)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 820, this.Height-60, pW, pH, platforms.Count);
+                //if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 820, this.Height-60, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
             while (pSpawned < 20)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 700, this.Height - 90, pW, pH, platforms.Count);
+                //if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 700, this.Height - 90, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
             while (pSpawned < 25)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 900, this.Height - 60, pW, pH, platforms.Count);
+                //if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 900, this.Height - 60, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
             while (pSpawned < 29)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 750, this.Height - 90, pW, pH, platforms.Count);
+                //if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 750, this.Height - 90, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
             while (pSpawned < 36)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 2420, this.Height - 60, pW, pH, platforms.Count);
+                //if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 2420, this.Height - 60, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
             while (pSpawned < 42)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 2240, this.Height - 90, pW, pH, platforms.Count);
+                //if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 2240, this.Height - 90, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
             while (pSpawned < 47)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 2090, this.Height - 120, pW, pH, platforms.Count);
+                //if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 2090, this.Height - 120, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
             while (pSpawned < 51)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 1970, this.Height - 150, pW, pH, platforms.Count);
+                //if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 1970, this.Height - 150, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
             while (pSpawned < 54)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 1880, this.Height - 180, pW, pH, platforms.Count);
+                //if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 1880, this.Height - 180, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
             while (pSpawned < 56)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 1820, this.Height - 210, pW, pH, platforms.Count);
+                //if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 1820, this.Height - 210, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
             while (pSpawned < 57)
             {
-                Platform newP = new Platform(pX + (gW * pSpawned) + 1790, this.Height - 240, pW, pH, platforms.Count);
+                //if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 1790, this.Height - 240, pW, pH, isMyst);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 62)
+            {
+                if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned), pY, pW, pH, isMyst);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 66)
+            {
+                if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 200, pY-60, pW, pH, isMyst);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 71)
+            {
+                if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 800, pY - 60, pW, pH, isMyst);
+                platforms.Add(newP);
+                pSpawned++;
+            }
+            while (pSpawned < 75)
+            {
+                if (mysteryChance.Next(0, 5) == 1) { isMyst = true; } else { isMyst = false; }
+                Platform newP = new Platform(pX + (gW * pSpawned) + 980, pY, pW, pH, isMyst);
                 platforms.Add(newP);
                 pSpawned++;
             }
@@ -399,11 +470,51 @@ namespace Super_Ghetto_Brothers
                 goons.Add(newG);
                 baSpawned++;
             }
+            if (baSpawned < 3)
+            {
+                baX = 1050;
+                Goonba newG = new Goonba(baX, baY, baWidth, baHeight, 1200, 1030, baDead);
+                goons.Add(newG);
+                baSpawned++;
+            }
+            if (baSpawned < 4)
+            {
+                baX = 2050;
+                Goonba newG = new Goonba(baX, baY, baWidth, baHeight, 2200, 2030, baDead);
+                goons.Add(newG);
+                baSpawned++;
+            }
+            if (baSpawned < 5)
+            {
+                baX = 2950;
+                Goonba newG = new Goonba(baX, baY, baWidth, baHeight, 3000, 2930, baDead);
+                goons.Add(newG);
+                baSpawned++;
+            }
+            if (baSpawned < 6)
+            {
+                baX = 3150;
+                Goonba newG = new Goonba(baX, baY, baWidth, baHeight, 3200, 3130, baDead);
+                goons.Add(newG);
+                baSpawned++;
+            }
 
             if (koSpawned < 1)
             {
                 koSpawned++;
                 Koopa newK = new Koopa(koX, koY, koWidth, koHeight, 1, false);
+                koopas.Add(newK);
+            }
+            if (koSpawned < 2)
+            {
+                koSpawned++;
+                Koopa newK = new Koopa(koX + 1600, koY, koWidth, koHeight, 1, false);
+                koopas.Add(newK);
+            }
+            if (koSpawned < 3)
+            {
+                koSpawned++;
+                Koopa newK = new Koopa(koX + 2000, koY, koWidth, koHeight, 1, false);
                 koopas.Add(newK);
             }
             #endregion
@@ -458,9 +569,22 @@ namespace Super_Ghetto_Brothers
                     break;
                 }
                 if (p1Top.IntersectsWith(coPlat))
-
                 {
                     jump = false;
+                    if (p.isMyst && p.state !=2)
+                    {
+                        p.state = 2;
+                        p.randItem(mysteryChance.Next(0, 10));
+                        coins += p.coins;
+                        if(p.item == "star")
+                        {
+                            pState = 2;
+                        }
+                        if (p.item == "life")
+                        {
+                            lives++;
+                        }
+                    }
                     break;
                 }
                 if (p1R.IntersectsWith(coPlat) || p1L.IntersectsWith(coPlat))
@@ -538,13 +662,12 @@ namespace Super_Ghetto_Brothers
             foreach (Koopa k in koopas)
             {
                 Rectangle koop = new Rectangle();
-                Console.WriteLine(k.state);
                 k.attack();
                 if (k.facingR)
                 {
                     if (k.state == 2)
                     {
-                        koop = new Rectangle(k.x, k.y, k.width, k.height);
+                        koop = new Rectangle(k.x, k.y + (k.height/2), k.width, k.height/2);
                     }
                     else
                     {
@@ -557,11 +680,11 @@ namespace Super_Ghetto_Brothers
                 {
                     if (k.state == 2)
                     {
-                        koop = new Rectangle(k.x, k.y, k.width * -1, k.height);
+                        koop = new Rectangle(k.x - k.width, k.y + (k.height / 2), k.width, k.height/2);
                     }
                     else
                     {
-                        koop = new Rectangle(k.x, k.y, k.width * -1, k.height);
+                        koop = new Rectangle(k.x - k.width, k.y, k.width, k.height);
                     }
                 }
                 if (p1Bot.IntersectsWith(koop))
@@ -642,7 +765,22 @@ namespace Super_Ghetto_Brothers
                 }
                 foreach (Platform p in platforms)
                 {
-                    e.Graphics.DrawImage(groundImage, p.x, p.y, p.width, p.height);
+                    if (!p.isMyst)
+                    {
+                        e.Graphics.DrawImage(groundImage, p.x, p.y, p.width, p.height);
+                    }
+                    else
+                    {
+                        if (p.state != 2)
+                        {
+                            e.Graphics.DrawImage(mBox1, p.x, p.y, p.width, p.height);
+                        }
+                        else
+                        {
+                            e.Graphics.DrawImage(mBox2, p.x, p.y, p.width, p.height);
+                        }
+                        
+                    }
                 }
                 foreach (Koopa k in koopas)
                 {
@@ -685,15 +823,24 @@ namespace Super_Ghetto_Brothers
                     e.Graphics.FillRectangle(brush,b.x, b.y, b.width, b.height);
 
                 }
-                e.Graphics.DrawString($"Coins: ", this.Font, brush, 10, 50);
+                e.Graphics.DrawString($"Coins: {coins}", this.Font, brush, 10, 50);
                 e.Graphics.DrawString($"Lives: {lives}", this.Font, brush, 10, 70);
-                e.Graphics.DrawImage(player1Image, p1X, p1Y, p1Width, p1Height);
+                e.Graphics.DrawString($"Score: {Convert.ToInt16(count/10)}", this.Font, brush, 10, 90);
+                if (pState == 1)
+                {
+                    e.Graphics.DrawImage(player1Image, p1X, p1Y, p1Width, p1Height);
+                }
+                else
+                {
+                    e.Graphics.DrawImage(player2Image, p1X, p1Y, p1Width, p1Height);
+                }
+                e.Graphics.DrawImage(flag, floorTiles[0].x+ 3800, this.Height-300, 80, 250);
                 //TESTING BOXES
                 //e.Graphics.DrawRectangle(pen, p1Top);
                 //e.Graphics.DrawRectangle(pen, p1Bot);
                 //e.Graphics.DrawRectangle(pen, p1L);
-                e.Graphics.DrawRectangle(pen, p1R);
-                
+                //e.Graphics.DrawRectangle(pen, p1R);
+
 
             } 
         }

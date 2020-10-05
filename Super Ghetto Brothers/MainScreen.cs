@@ -22,6 +22,7 @@ namespace Super_Ghetto_Brothers
         {
             Form1.players = 1;
             GameScreen.lives = 3;
+            GameScreen.coins = GameScreen.oldCoins = 0;
             startGame();
         }
 

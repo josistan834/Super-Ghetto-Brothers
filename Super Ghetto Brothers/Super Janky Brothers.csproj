@@ -157,5 +157,14 @@
   <ItemGroup>
     <None Include="Resources\Koopa Trooper-2.png.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PowerBrick-1.png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PowerBrick-2.png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flag-1.png.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
