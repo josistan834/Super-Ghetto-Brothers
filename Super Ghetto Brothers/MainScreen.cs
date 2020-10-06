@@ -18,6 +18,7 @@ namespace Super_Ghetto_Brothers
             plr1Button.Focus();
         }
 
+        //On start click set the initial global variables then start
         private void plr1Button_Click(object sender, EventArgs e)
         {
             Form1.players = 1;
@@ -26,17 +27,19 @@ namespace Super_Ghetto_Brothers
             startGame();
         }
 
+        //On exit click close the program
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        //On start click switch to game screen
         public void startGame()
         {
             // f is the form that this control is on - ("this" is the current User Control) 
             Form f = this.FindForm();
             f.Controls.Remove(this);
-            // Create an instance of the SecondScreen 
+            // Create an instance of the GameScreen 
             GameScreen gs = new GameScreen();
             // Add the User Control to the Form 
             f.Controls.Add(gs);

@@ -8,8 +8,11 @@ namespace Super_Ghetto_Brothers
 {
     public class Goonba
     {
+        //Variables
         public int x, y, width, height, LX, RX, speed;
         public bool dead;
+
+        //Method to recieve properties of goonba
         public Goonba(int _x, int _y, int _width, int _height, int _RX, int _LX, bool _dead)
         {
             x = _x;
@@ -22,6 +25,7 @@ namespace Super_Ghetto_Brothers
 
         }
 
+        //Behaviour to move goonbas
         public void moveGoon(Goonba g, bool dir)
         {
             if (dir == false)

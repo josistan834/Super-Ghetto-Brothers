@@ -350,6 +350,7 @@ namespace Super_Ghetto_Brothers
                 this.BackColor = Color.DeepSkyBlue;
             } 
 
+            //Creates the floor before the games begins
             #region Floor generation
             while (floorTiles.Count < 50)
             {
@@ -371,6 +372,7 @@ namespace Super_Ghetto_Brothers
             }
             #endregion
 
+            //Creates platforms before the games begin also uses a random to genereate some mystery blocks
             #region Platform generation
             while (pSpawned < 5)
             {
@@ -503,6 +505,7 @@ namespace Super_Ghetto_Brothers
             }
             #endregion
 
+            //Spawns the specified enemy at specified loaction uses the spawned int so dead enemies dont come back
             #region Enemy Spawner
             if (baSpawned < 1)
             {
@@ -566,6 +569,7 @@ namespace Super_Ghetto_Brothers
             }
             #endregion
 
+            //Collisions with player and other objects
             #region Collisions
             p1Bot = new Rectangle(p1X + (p1Width / 2), p1Y+p1Height, 15, 1);
             p1Top = new Rectangle(p1X + (p1Width/2), p1Y, 15, 1);
@@ -773,6 +777,7 @@ namespace Super_Ghetto_Brothers
 
                 #endregion
 
+            //If an enemy is dead, find and remove it from the list
             #region kill/break
             int index = goons.FindIndex(g => g.dead == true);
             if (index >= 0)
@@ -791,16 +796,17 @@ namespace Super_Ghetto_Brothers
             }
             #endregion
 
-            //Win
+            //If touching the location of the flag, win.
             if (p1X >= floorTiles[0].x + 3800 && p1X <= floorTiles[0].x + 3805 && p1Y >= this.Height-250)
             {
                 win();
             }
 
-
+            //Add one to the counter used for timing logic
             count++;
+
+            //Refresh the gamescreen
             Refresh();
-            //Console.WriteLine(trueX);
         }
 
         //Draw the objects to the screen

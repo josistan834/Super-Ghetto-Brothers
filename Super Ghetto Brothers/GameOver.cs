@@ -19,10 +19,13 @@ namespace Super_Ghetto_Brothers
            
         }
 
+        //On load
         private void GameOver_Load(object sender, EventArgs e)
         {
+            //If you have lives
             if (GameScreen.lives > 0)
             {
+                //Lose life
                 if (!GameScreen.WIN)
                 {
                     // f is the form that this control is on - ("this" is the current User Control) 
@@ -34,6 +37,7 @@ namespace Super_Ghetto_Brothers
                     f.Controls.Add(gs);
                     gs.Location = new Point((f.Width - gs.Width) / 2, (f.Height - gs.Height) / 2);
                 }
+                //Winning screen show
                 else
                 {
                     continueButton.Show();
@@ -45,6 +49,8 @@ namespace Super_Ghetto_Brothers
                 }
                
             }
+
+            //When you have no lives show gameover
             else
             {
                 label1.ForeColor = Color.Red;
@@ -56,6 +62,7 @@ namespace Super_Ghetto_Brothers
             }
         }
 
+        //Return to the main screen
         private void continueButton_Click(object sender, EventArgs e)
         {
             // f is the form that this control is on - ("this" is the current User Control) 
@@ -68,6 +75,7 @@ namespace Super_Ghetto_Brothers
             ms.Location = new Point((f.Width - ms.Width) / 2, (f.Height - ms.Height) / 2);
         }
 
+        //End the program on exic click
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();

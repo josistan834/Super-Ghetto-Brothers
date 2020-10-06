@@ -9,8 +9,11 @@ namespace Super_Ghetto_Brothers
 {
     public class Bullet
     {
+        //Varibles
         public int x, y, width, height;
         public bool dead, facingR;
+
+        //Method to recieve properties of bullets
         public Bullet(int _x, int _y, int _width, int _height, bool _dead, bool _facingR)
         {
             x = _x;
@@ -20,6 +23,8 @@ namespace Super_Ghetto_Brothers
             dead = _dead;
             facingR = _facingR;
         }
+
+        //Logic for fireing bullet 
         public static void shoot()
         {
             foreach(Bullet b in Koopa.bullets)
